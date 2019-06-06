@@ -1,0 +1,78 @@
+# java -jar eureka-center-0.0.1-SNAPSHOT.jar --spring.profiles.active=server1
+# java -jar eureka-center-0.0.1-SNAPSHOT.jar --spring.profiles.active=server2
+# java -jar eureka-center-0.0.1-SNAPSHOT.jar --spring.profiles.active=server3
+
+spring:
+  application:
+    name: eureka-center
+  profiles: server1
+
+server:
+  port: 8001
+
+eureka:
+  instance:
+    # 主机名
+    hostname: server1
+    # 使用IP进行配置
+    # preferIpAddress: true
+    # 指定节点ID
+    # ipAddress: 127.0.0.1
+  client:
+    # 是否从Eureka Server获取注册信息
+    fetch-registry: true
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+
+    serviceUrl:
+      defaultZone: http://server2:8002/eureka/,http://server3:8003/eureka/
+---
+spring:
+  application:
+    name: eureka-center
+  profiles: server2
+
+server:
+  port: 8002
+
+eureka:
+  instance:
+    # 主机名
+    hostname: server2
+    # 使用IP进行配置
+    # preferIpAddress: true
+    # 指定节点ID
+    # ipAddress: 127.0.0.1
+  client:
+    # 是否从Eureka Server获取注册信息
+    fetch-registry: true
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+
+    serviceUrl:
+      defaultZone: http://server1:8001/eureka/,http://server3:8003/eureka/
+---
+spring:
+  application:
+    name: eureka-center
+  profiles: server3
+
+server:
+  port: 8003
+
+eureka:
+  instance:
+    # 主机名
+    hostname: server3
+    # 使用IP进行配置
+    # preferIpAddress: true
+    # 指定节点ID
+    # ipAddress: 127.0.0.1
+  client:
+    # 是否从Eureka Server获取注册信息
+    fetch-registry: true
+    # 是否将自己注册到Eureka Server
+    register-with-eureka: true
+
+    serviceUrl:
+      defaultZone: http://server1:8001/eureka/,http://server2:8002/eureka/
